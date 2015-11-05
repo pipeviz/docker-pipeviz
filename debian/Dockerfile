@@ -1,16 +1,3 @@
-# Pipeviz Dockerfile 0.1.1
-#
-# To use this Dockerfile, do the following:
-#
-# Build a docker image tagged pipeviz:
-#   docker build -f Dockerfile.debian -t pipeviz/pipeviz .
-#
-# Run a docker container named pipeserv using the image you just built:
-#   docker run -ti -p 8008:8008 --rm --name pipeserv pipeviz/pipeviz
-#
-# In a seperate shell, run a separate container to manually send input to the pipeviz server:
-#   docker run -ti --link pipeserv:pipeserv --rm pipeviz/pipeviz pvutil fixr fixtures/realistic/ -t http://pipeserv:2309
-
 FROM debian:latest
 MAINTAINER Melissa Anderson <melissa@happypunch.com>
 
@@ -32,6 +19,6 @@ WORKDIR $GOPATH/src/github.com/pipeviz/pipeviz
 RUN git clone https://github.com/pipeviz/pipeviz.git $GOPATH/src/github.com/pipeviz/pipeviz
 RUN chown -R pipeviz $GOPATH
 USER pipeviz
-RUN make gen && \
+RUN make && \
     make install
 CMD ["pipeviz", "-b"]
