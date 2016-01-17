@@ -24,8 +24,9 @@ RUN cp /tmp/linux-amd64/glide /usr/local/bin
 RUN useradd pipeviz
 WORKDIR $GOPATH/src/github.com/pipeviz/pipeviz
 RUN git clone https://github.com/pipeviz/pipeviz.git $GOPATH/src/github.com/pipeviz/pipeviz
+RUN git clone https://github.com/pipeviz/webapp $GOPATH/src/github.com/pipeviz/webapp
 RUN chown -R pipeviz $GOPATH
 USER pipeviz
 RUN make && \
     make install
-CMD ["pipeviz", "-b"]
+CMD ["pipeviz", "-b", "--webapp-dir=../webapp/public"]
